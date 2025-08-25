@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+</head>
+<body>
+    <center>
+        <h1>Welcome To QR Code Generator</h1>
+    </center>
+    <fieldset>
+        <legend>QR Code Creater</legend>
+    <form method="post" action="{{url_for('gqr')}}">
+        <h2>Enter QR Code Text:<input style="font-size: 100%;" type="text" required name="qrtext"></h2>
+        <h2>QR Code Background Color:<input type="color" value="#ffffff"  required name="qrbg"></h2>
+        <h2>Enter QR Code Color:<input type="color" required value="#000000" name="qrc"></h2>
+        <button type="submit">Submit</button>
+    </form>
+    </fieldset>
+</body>
+</html>
