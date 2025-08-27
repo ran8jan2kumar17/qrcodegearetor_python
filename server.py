@@ -38,4 +38,4 @@ def gpdf():
            print(e)    
            return "<center><h1>Something wonts wrong.</h1></center>"
 
-app.run(port=3000,host="0.0.0.0",debug=True)
+app.run(port=3000)
