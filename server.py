@@ -1,6 +1,7 @@
 from flask import Flask ,render_template as rt,request as req,url_for
 from qr import genarate_qr
 from pdf import gpdf1
+import os
 
 
 
@@ -40,5 +41,6 @@ def gpdf():
            print(e)    
            return "<center><h1>Something wonts wrong.</h1></center>"
 
-app.run(process.env.PORT)
+port = int(os.environ.get("PORT", 3000))
+app.run(host="0.0.0.0", port=port)
 #app.run(3000)
