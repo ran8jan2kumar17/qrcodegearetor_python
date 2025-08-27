@@ -1,5 +1,6 @@
 from flask import Flask ,render_template as rt,request as req,url_for
 from qr import genarate_qr
+from pdf import gpdf1
 
 app=Flask(__name__)
 
@@ -17,10 +18,24 @@ def gqr():
             t=req.form.get("qrtext")
             c=req.form.get("qrc")
             bc=req.form.get("qrbg")
-            genarate_qr(t,c,bc)
-            return rt("sqr.html")
+            qr=genarate_qr(t,c,bc)
+            return rt("sqr.html",f=qr)
     except Exception as e:
          print(e)    
          return "<center><h1>Something wonts wrong.</h1></center>"
+    
+@app.get("/pdf")
+def pdf():
+     return rt("pdf.html")
+
+@app.post("/gpdf")
+def gpdf():
+     try:
+        files=req.files.getlist("images[]")
+        cpdf=gpdf1([img.stream for img in files])
+        return rt("spdf.html",pdfs=cpdf)
+     except Exception as e:
+           print(e)    
+           return "<center><h1>Something wonts wrong.</h1></center>"
 
 app.run(port=3000,host="0.0.0.0",debug=True)

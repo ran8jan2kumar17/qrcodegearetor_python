@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Creator</title>
+</head>
+<body>
+    <center>
+        <h1>Welcome To PDF Creater</h1>
+    </center>
+    <fieldset>
+        <legend>PDF Creater</legend>
+        <form method="post" action="{{url_for('gpdf')}}" enctype="multipart/form-data">
+          <h1>Select Files:<input required type="file"  name="images[]" accept="image/*" multiple></h1>
+          <button type="submit">Submit</button>
+        </form>
+    </fieldset>
+</body>
+</html>

@@ -9,8 +9,10 @@
 <body>
     <center>
         <h1>Your QR Code</h1>
-        <img src="{{url_for('static',filename='newqr.png')}}" width="37%">
-        <h1><a href="{{url_for('static',filename='newqr.png')}}" download>Click Here To Download QR Code</a></h1>
+        <!--<img src="{{url_for('static',filename='newqr.png')}}" width="37%">-->
+        <img src="data:image/png;base64,{{ f }}" width="37%">
+        <!--<h1><a href="{{url_for('static',filename='newqr.png')}}" download>Click Here To Download QR Code</a></h1>-->
+        <h1><a href="data:image/png;base64,{{ f }}" download>Click Here To Download QR Code</a></h1>
     </center>
 </body>
 </html>

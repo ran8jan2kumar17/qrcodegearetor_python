@@ -1,6 +1,8 @@
 import qrcode
 from PIL import Image
 import os
+import base64
+import io
 
 def genarate_qr(t,c,bc):
     qr=qrcode.QRCode(
@@ -18,7 +20,12 @@ def genarate_qr(t,c,bc):
 
     qr_img=qr.make_image(fill_color=c,back_color=bc)
 
-    qr_img.save("static/newqr.png")
+    #qr_img.save("static/newqr.png")
+    buffer = io.BytesIO()
+    qr_img.save(buffer, format="PNG")
+    buffer.seek(0)
+    # convert to base64 string
+    return base64.b64encode(buffer.getvalue()).decode()
 
 
 
