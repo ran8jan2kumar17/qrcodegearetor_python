@@ -2,6 +2,8 @@ from flask import Flask ,render_template as rt,request as req,url_for
 from qr import genarate_qr
 from pdf import gpdf1
 
+
+
 app=Flask(__name__)
 
 @app.get("/qr")
@@ -38,4 +40,5 @@ def gpdf():
            print(e)    
            return "<center><h1>Something wonts wrong.</h1></center>"
 
-app.run(port=3000)
+app.run(process.env.PORT)
+#app.run(3000)
