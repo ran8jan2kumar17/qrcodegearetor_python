@@ -2,10 +2,13 @@ from flask import Flask ,render_template as rt,request as req,url_for
 from qr import genarate_qr
 from pdf import gpdf1
 import os
+from werkzeug.exceptions import RequestEntityTooLarge
 
 
 
 app=Flask(__name__)
+
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
 @app.get("/qr")
 def qr():
@@ -13,7 +16,7 @@ def qr():
         return rt("index.html")
     except Exception as e:
         print(e)
-        return "<center><h1>Something wonts wrong.</h1></center>"
+        return "<center><h1>Something wants wrong. Please Try Again.</h1></center>"
 
 @app.post("/gqr")
 def gqr():
@@ -25,7 +28,7 @@ def gqr():
             return rt("sqr.html",f=qr)
     except Exception as e:
          print(e)    
-         return "<center><h1>Something wonts wrong.</h1></center>"
+         return "<center><h1>Something wants wrong. Please Try Again.</h1></center>"
     
 @app.get("/pdf")
 def pdf():
@@ -36,11 +39,20 @@ def gpdf():
      try:
         files=req.files.getlist("images[]")
         cpdf=gpdf1([img.stream for img in files])
-        return rt("spdf.html",pdfs=cpdf)
+        if cpdf == None:
+             return "<h1>It Only Accept .PNG images. Please Try Again.</h1>"
+        else:
+             return rt("spdf.html",pdfs=cpdf)
      except Exception as e:
            print(e)    
-           return "<center><h1>Something wonts wrong.</h1></center>"
+           return "<center><h1>Something wnts wrong. Please Try Again.OR File too large! Max upload size is 2MB.</h1></center>"
+     
+
+@app.errorhandler(RequestEntityTooLarge)
+def handle_file_too_large(e):
+    return "<h1>File too large! Max upload size is 2MB.</h1>", 413
+
+
 
 port = int(os.environ.get("PORT", 3000))
 app.run(host="0.0.0.0", port=port)
-#app.run(3000)

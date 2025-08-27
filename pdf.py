@@ -24,11 +24,11 @@ def gpdf1(images=None):
             buffer.seek(0)
             png_streams.append(buffer)
         else:
+            return None
             # Convert any other format to PNG in memory
-            buffer = io.BytesIO()
-            img.save(buffer, format="PNG")
-            buffer.seek(0)
-            png_streams.append(buffer)
+           # img.save(buffer, format="PNG")
+           # buffer.seek(0)
+           # png_streams.append(buffer)
 
     # img2pdf expects file-like objects that support read()
     pdf_bytes = img2pdf.convert(png_streams)
